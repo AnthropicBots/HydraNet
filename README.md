@@ -20,3 +20,4 @@ The cluster operates under a **Master-Worker Graph Topology**:
 ### 1. Initialize the Master Network Node (M. Yadav Only)
 ```bash
 hydranet master-start --port=8080 --db-local=./vector_store
+<img width="2816" height="1536" alt="Gemini_Generated_Image_ktjisdktjisdktji" src="https://github.com/user-attachments/assets/a01c0ff4-9eba-4932-88cb-ca1017ee68ac" />
