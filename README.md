@@ -1,331 +1,559 @@
-# HydraNet (ʊ-Net) ── The Open-Source Distributed VRAM Mesh Network & Self-Healing Agentic Swarm
+<!--
+  ██╗  ██╗██╗   ██╗██████╗ ██████╗  █████╗ ███╗   ██╗███████╗████████╗
+  ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗████╗  ██║██╔════╝╚══██╔══╝
+  ███████║ ╚████╔╝ ██║  ██║██████╔╝███████║██╔██╗ ██║█████╗     ██║
+  ██╔══██║  ╚██╔╝  ██║  ██║██╔══██╗██╔══██║██║╚██╗██║██╔══╝     ██║
+  ██║  ██║   ██║   ██████╔╝██║  ██║██║  ██║██║ ╚████║███████╗   ██║
+  ╚═╝  ╚═╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝
+                                    ʊ-Net
+-->
 
-> **"Stop burning thousands of dollars on cloud AI tokens or closed-source platforms. HydraNet lets you chain your team’s local developer/gaming laptops together over local Wi-Fi, pooling your VRAM to run a hyper-coordinated swarm of self-healing software engineering agents completely for free."**
+<div align="center">
+
+```
+██╗ ██╗    ███╗   ██╗███████╗████████╗
+╚██╔╝╚██╗  ████╗  ██║██╔════╝╚══██╔══╝
+ ╚═╗  ╚═╗  ██╔██╗ ██║█████╗     ██║
+ ██╔╝  ██╔╝ ██║╚██╗██║██╔══╝     ██║
+██╔╝  ██╔╝  ██║ ╚████║███████╗   ██║
+╚═╝   ╚═╝   ╚═╝  ╚═══╝╚══════╝   ╚═╝
+        HydraNet  ·  ʊ-Net
+```
+
+**The Self-Healing Distributed Multi-Agent Engineering Swarm**
+
+*When an agent gets stuck, it doesn't retry harder — it rethinks from scratch.*
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Pre--Alpha-orange)](/)
+[![Stack](https://img.shields.io/badge/Stack-Python_%7C_TypeScript-green)](/)
+[![Nodes](https://img.shields.io/badge/Cluster-3%20Nodes_%7C_22GB%20VRAM-purple)](/)
+[![Built In Public](https://img.shields.io/badge/Built-In%20Public-ff69b4)](/)
+
+> *"Three gaming laptops. Zero cloud. A swarm of self-healing agents that quit when they should and retry when they must."*
+
+</div>
 
 ---
 
-## 👑 THE CORE CLUSTER ARCHITECTURE
+## Why this exists
 
-HydraNet is a local-first, decentralized, multi-agent software engineering framework designed to maximize heterogeneous consumer hardware while enforcing data sovereignty and eliminating token bills.
+Every AI coding agent in production today shares a fatal flaw called **The Death Spiral**.
 
-The cluster operates under a **Master-Worker Graph Topology**:
-* **The Controller (M. Yadav):** Dedicated to the structural orchestration layer, state-machine processing, networking synchronization, graph memory persistence, and human-in-the-loop validation gates.
-* **The Distributed Compute Node (Y. Jangra):** Dedicated to hosting optimized local LLM/SLM quantization engines and extracting Abstract Syntax Tree (AST) code structures.
-* **The Sandbox Isolation Node (B. Kataria):** Dedicated to spinning up containerized testing scopes, executing Model Context Protocol (MCP) toolkits, and managing git tree states.
+```
+ Error on line 47
+      │
+      ▼
+ Agent tweaks line 47 slightly
+      │
+      ▼
+ Same error on line 47
+      │
+      ▼
+ Agent tweaks line 47 again (differently than before, but still just line 47)
+      │
+      ▼
+ Same error on line 47
+      │
+      ▼
+ [repeats 23 more times until context window explodes or token budget dies]
+```
+
+A human engineer reads that error, realizes the bug is actually three files upstream in the schema definition, opens that file, and fixes it there. The agent doesn't. It can't. It doesn't know how to **quit a dead approach and try a different one**.
+
+HydraNet (ʊ-Net) is built to solve exactly that: detect when an agent has entered a death spiral, activate what we call **The Reaper Protocol** — kill the branch, roll the workspace back, inject the failure history, and force a genuinely different strategy.
+
+Everything else in this repo — the AST-aware graph retrieval, the three-node mesh, the live genealogy dashboard — exists to support that one core idea.
 
 ---
 
-## 🛠️ CLUSTER INITIALIZATION (EXECUTIVE COMMANDS)
+## The Architecture
 
-### 1. Initialize the Master Network Node (M. Yadav Only)
-```bash
-hydranet master-start --port=8080 --db-local=./vector_store
-<img width="2816" height="1536" alt="Gemini_Generated_Image_ktjisdktjisdktji" src="https://github.com/user-attachments/assets/a01c0ff4-9eba-4932-88cb-ca1017ee68ac" />
+```
+                         [ Bug report / GitHub issue ]
+                                      │
+                                      ▼
+  ╔═══════════════════════════════════════════════════════════════════╗
+  ║         NODE A  ─  THE SUPERVISOR  (M. Yadav · RTX 3050 · 6GB)   ║
+  ║                                                                   ║
+  ║  ┌─────────────────┐   ┌──────────────┐   ┌──────────────────┐   ║
+  ║  │  State Machine  │──▶│ Convergence  │──▶│ Reaper Protocol  │   ║
+  ║  │  (LangGraph)    │   │  Detector    │   │ (rollback engine)│   ║
+  ║  └─────────────────┘   └──────────────┘   └──────────────────┘   ║
+  ║          │                                         │              ║
+  ║   routes tasks                             fires on threshold     ║
+  ╚══════════╪═════════════════════════════════════════╪═════════════╝
+             │                                         │
+      ┌──────┴──────┐                         ┌────────┴───────┐
+      ▼             ▼                         ▼                ▼
+  [Code tasks] [Review tasks]           [Rollback workspace]
+      │                                  [Rebranch + re-plan]
+      │
+  ╔═══╧═══════════════════════════╗   ╔═══════════════════════════════╗
+  ║ NODE B  ─  INFERENCE WORKER   ║   ║ NODE C  ─  SANDBOX WORKER     ║
+  ║ (Y. Jangra · RTX 4060 · 8GB) ║   ║ (B. Kataria · RTX 4060 · 8GB)║
+  ║                               ║   ║                               ║
+  ║  Qwen2.5-Coder-7B (4-bit AWQ) ║   ║  Docker ephemeral sandbox     ║
+  ║  BAAI/bge embedding server    ║   ║  pytest / jest executor       ║
+  ║  Tree-sitter AST parser       ║   ║  git checkpoint engine        ║
+  ║  pgvector graph retrieval     ║   ║  diff calculator              ║
+  ╚═══════════════════════════════╝   ╚═══════════════════════════════╝
+             │                                         │
+             │◀────────── gRPC / WebSocket ───────────▶│
+             │             (LAN · TLS)                  │
+             │                                         │
+             └─────────────────┬───────────────────────┘
+                               ▼
+                   ╔═══════════════════════╗
+                   ║   LIVE DASHBOARD      ║
+                   ║   (Next.js + WS)      ║
+                   ║                       ║
+                   ║  • Agent thought tree ║
+                   ║  • Genealogy view     ║
+                   ║  • Node VRAM meters   ║
+                   ║  • War Room mode      ║
+                   ╚═══════════════════════╝
+```
 
-
-# Loopcutter
-
-> A local-first, multi-agent coding assistant that stops AI agents from looping on the same broken fix. Runs entirely on your own GPUs — no cloud calls, no token bills, no black box.
-
-Built by **M. Yadav**, **Y. Jangra**, and **B. Kataria** — three devs, three laptops, six months.
-
-License: MIT &nbsp;·&nbsp; Status: Pre-alpha / building in public &nbsp;·&nbsp; Stack: Python + TypeScript
+Each node runs its **own independent model** doing its **own specialist job**. They coordinate over your local WiFi. This is a distributed multi-agent mesh — not tensor-parallel model splitting across machines (that's a different project with different tradeoffs).
 
 ---
 
-## What this actually is
+## The Reaper Protocol — how the death spiral gets killed
 
-Most AI coding agents — cloud or local — share one failure mode. When a fix doesn't work, the agent tweaks one line and retries the *exact same broken approach*, over and over, until it burns through its budget. A human would stop, think, and try something genuinely different.
+This is the feature that doesn't exist anywhere else.
 
-Loopcutter exists to fix that one thing well: detect when an agent is stuck, halt it, roll the workspace back to a known-good state, and force a real change in approach — instead of letting it spiral for 20 attempts.
+```
+ATTEMPT  │  CODE CHANGE              │  CONVERGENCE SCORE  │  OUTCOME
+─────────┼───────────────────────────┼─────────────────────┼──────────────
+    1    │  Patch auth.py line 47    │  0.12               │  Tests fail
+    2    │  Patch auth.py line 47-48 │  0.51  ▲            │  Tests fail
+    3    │  Patch auth.py line 46-49 │  0.82  ▲▲           │  Tests fail
+    3.1  │  ── REAPER FIRES ──       │  > 0.75 threshold   │
+         │  git branch --move        │                     │
+         │  inject failure context   │                     │
+         │  force new strategy       │                     │
+    4    │  Trace call to db.ts      │  0.08  ▼▼▼          │  Tests fail
+    5    │  Fix schema in users.sql  │  0.19               │  PASS ✓
+```
 
-Everything else here — the AST-aware code search, the three-laptop setup, the dashboard — exists to support that core loop. This is **not** trying to be a free, smaller Devin. Read [Honest Scope](#honest-scope--read-this-before-you-commit-six-months) before committing six months to it.
+**Convergence Score** is a metric we compute per-attempt:
+
+```
+  convergence_score = α · patch_similarity(attempt_n, attempt_n-1)
+                    + β · command_repetition_rate(last_k_attempts)
+                    + γ · error_signature_match(stderr_n, stderr_n-1)
+
+  threshold = 0.75   (configurable in hydra.config.json)
+  k = 3              (lookback window)
+```
+
+When the score crosses the threshold, the Reaper fires regardless of how "close" the agent thinks it is. Close doesn't matter. A dead approach is a dead approach.
 
 ---
 
-## How it works
+## The Genealogy View — what every agent forgets to track
+
+The live dashboard renders a **decision tree** of every approach attempted, not just the final one:
 
 ```
-                     [ Issue / bug description comes in ]
-                                     │
-                                     ▼
-        ┌─────────────────────────────────────────────────────────┐
-        │         NODE A — SUPERVISOR (M. Yadav · RTX 3050, 6GB)   │
-        │     state machine · loop detector · git rollback engine  │
-        └───────────────┬───────────────────────┬──────────────────┘
-                         │                       │
-               (plan / write code)      (run tests / sandbox)
-                         │                       │
-                         ▼                       ▼
-        ┌────────────────────────────┐  ┌─────────────────────────────┐
-        │  NODE B — INFERENCE WORKER │  │  NODE C — SANDBOX WORKER     │
-        │  (Y. Jangra · RTX 4060,8GB)│  │  (B. Kataria · RTX 4060,8GB) │
-        │  quantized coder model      │  │  Docker test execution       │
-        │  AST-aware code retrieval   │  │  checkpoint / diff tooling   │
-        └────────────────────────────┘  └─────────────────────────────┘
+  ROOT: "Fix JWT expiry bug in auth middleware"
+  │
+  ├── [BRANCH A · DEAD] Patch token validation in auth.ts
+  │     ├── attempt 1 → TypeError ✗
+  │     ├── attempt 2 → TypeError (same) ✗
+  │     └── attempt 3 → ── REAPER ── convergence=0.81
+  │
+  ├── [BRANCH B · DEAD] Update token expiry constant
+  │     ├── attempt 1 → Tests fail (different error) ✗
+  │     └── attempt 2 → ── REAPER ── convergence=0.79
+  │
+  └── [BRANCH C · ACTIVE] Investigate refresh token handler in middleware.ts
+        ├── attempt 1 → SyntaxError ✗
+        └── attempt 2 → ✓ PASSING (12/12 tests)
 ```
 
-Each laptop runs its **own** model and its **own** job, and they coordinate over your local network. This is a distributed multi-agent system — not one model split across three machines. See [Honest Scope](#honest-scope--read-this-before-you-commit-six-months) for why that distinction is worth being precise about.
+No current open-source agent surfaces this. They either show you the current state or the final result. HydraNet keeps the whole exploration history alive so you can audit exactly why the agent changed course — and why *you* should trust the answer it landed on.
 
-### The loop-breaking flow — the actual point of this project
+---
 
-```
-attempt 1 fails ──► attempt 2 (near-identical) fails ──► attempt 3 (still near-identical) fails
-                                                                       │
-                                                                       ▼
-                                               [ SUPERVISOR INTERVENES ]
-                                     git checkpoint → rollback → forced re-plan
-                                        (failure history injected into prompt)
-                                                                       │
-                                                                       ▼
-                                                attempt 4: genuinely different approach
-```
-
-### AST-aware retrieval, in one picture
+## AST-aware retrieval vs. flat embeddings — the problem in one diagram
 
 ```
-[auth.ts] ──(imports)──► [db.ts] ──(mutates)──► [users schema]
-    │                                                  ▲
-    └──────────(referenced by the error log)───────────┘
+  FLAT EMBEDDING SEARCH:
+  ─────────────────────
+  Error: "Cannot read property 'id' of undefined in auth.ts:47"
+
+  Query → [ auth token validation ]
+  Match → [ auth.ts ]   ✓ (correct)
+  Miss  → [ db.ts   ]   ✗ (root cause is here — but semantic distance is too high)
+  Miss  → [ schema/users.sql ]  ✗ (even further semantically)
+
+  Result: Agent sees auth.ts. Auth.ts looks fine. Agent edits auth.ts.
+          Same error. Repeat.
+
+
+  AST GRAPH WALK:
+  ─────────────────────
+  auth.ts:47 → imports resolveUser() from db.ts
+  db.ts:22   → queries User.findById() → mutates users schema
+  users.sql  → id column is nullable (this is the bug)
+
+  Result: Agent sees auth.ts → db.ts → users.sql.
+          Fixes the nullable id column in the schema.
+          Tests pass. Done.
 ```
-A flat embedding search matches on wording and would likely miss `db.ts` entirely. Walking the actual import/call graph doesn't.
+
+HydraNet parses every file with **Tree-sitter** into a real AST, extracts the import/call/inheritance graph, and stores it in **pgvector**. Retrieval walks the graph, not just the similarity space. Dead bugs that live three hops from the error site get found.
 
 ---
 
 ## Team
 
-| Person | Role | Owns | Machine |
-|---|---|---|---|
-| **M. Yadav** | Project Lead / Systems Architect | Orchestration, state machine, networking, rollback engine | Node A — RTX 3050, 6GB |
-| **Y. Jangra** | Core Contributor — Inference Lead | Model serving, prompting, AST parsing, code retrieval | Node B — RTX 4060, 8GB |
-| **B. Kataria** | Core Contributor — Infra Lead | Sandboxing, Docker, checkpoint/rollback tooling, dashboard plumbing | Node C — RTX 4060, 8GB |
+| Node | Person | Title | Owns | Hardware |
+|------|--------|-------|------|----------|
+| **A** | **M. Yadav** | Project Lead · Systems Architect | State machine, Reaper Protocol, networking, orchestration, convergence scoring | RTX 3050 · 6GB VRAM |
+| **B** | **Y. Jangra** | Core Contributor · Inference Lead | Model serving, quantization, prompting, AST parsing, code retrieval, genealogy logic | RTX 4060 · 8GB VRAM |
+| **C** | **B. Kataria** | Core Contributor · Infrastructure Lead | Docker sandbox, git checkpoint engine, diff tooling, dashboard backend, CI | RTX 4060 · 8GB VRAM |
 
-## Tech stack
-
-| Layer | Choice | Why |
-|---|---|---|
-| Orchestration | Python + LangGraph | Cyclic graphs map naturally onto retry/backtrack logic |
-| Model serving | Ollama or vLLM | Quantized 7–8B coder models (Qwen2.5-Coder, DeepSeek-Coder) — what actually fits in 6–8GB |
-| Networking | gRPC or WebSocket + TLS | Use existing, audited TLS. Don't hand-roll crypto handshakes |
-| Sandboxing | Docker | Ephemeral, per-attempt containers; only the relevant repo slice gets mounted |
-| Code parsing | Tree-sitter | Real AST extraction — not regex, not flat embeddings |
-| Vector store | pgvector (Postgres) | One database, not two |
-| Dashboard | Next.js + WebSockets | Live state stream, deliberately minimal in v1 |
-| Version control | git (GitPython / CLI) | Branch-per-attempt, checkpoint, rollback |
-
-## Six-month roadmap
-
-| Month | Objective | What "done" looks like | Primary owner |
-|---|---|---|---|
-| 1 | Single-machine agent loop | CLI fixes a small Python bug end-to-end inside Docker, on one laptop | All three — shared foundation |
-| 2 | Loop detection & backtracking | Demo: agent backtracks after 3 failed attempts instead of looping 20+ | M. Yadav |
-| 3 | AST-aware code RAG | Side-by-side proof structural search finds a bug flat embeddings miss | Y. Jangra |
-| 4 | Multi-machine coordination | The Month-1 CLI command now runs across all 3 physical laptops | M. Yadav |
-| 5 | Minimal live dashboard | Screen-recordable UI showing live agent state | Y. Jangra |
-| 6 | Benchmark + honest release | Public repo with real SWE-bench Lite numbers, failures included | B. Kataria |
-
-## Honest scope — read this before you commit six months
-
-| The pitch | The reality | Why it matters |
-|---|---|---|
-| "Pools VRAM across 3 laptops into one bigger model" | Three independent models that coordinate over the network | True tensor-parallel pooling across machines exists (exo, llama.cpp's `rpc-server`), but WiFi latency makes it slower than running models independently. A coordinated multi-agent mesh is the right call — just don't market it as something it isn't. |
-| "Beats Devin / OpenHands / Cline in 6 months" | "Does one narrow thing — loop-breaking — better than they do, on hardware you already own" | Those tools have years of work, funded teams, and tens of thousands of GitHub stars behind them already. Competing head-on isn't a fair fight. Owning one edge is. |
-| "10k–50k GitHub stars" | No star target | Stars follow usefulness, timing, and luck — not README copy. Treat them as a side effect, not a goal. |
-| Custom RSA handshake + custom TCP framing, built from scratch | gRPC / WebSocket + TLS + a shared token | Don't spend a month reinventing security-critical networking primitives that are already audited and one `pip install` away. |
-| "Boss" and "colleagues who bow to the host machine" | One architecture owner, three core contributors, shared credit | Fine for a README to show clear ownership. Not how to run an unpaid six-month project with two friends. |
+**Total cluster VRAM: 22GB · Total daily cloud token cost: $0.00**
 
 ---
 
-## Getting started *(target interface — build this across Month 1 / Month 4)*
+## Tech Stack
+
+| Layer | Choice | Rationale |
+|-------|--------|-----------|
+| Orchestration | Python 3.11 + LangGraph | Cyclic state graphs map directly onto retry/branch/rollback logic |
+| Model serving | Ollama → vLLM (when stable) | Qwen2.5-Coder-7B-Instruct at 4-bit AWQ fits 4.1GB VRAM on 4060 |
+| Supervisor model | Phi-3-Mini (4-bit GGUF) | Fast routing decisions at 3.1GB on 3050; no code generation needed |
+| Embedding | BAAI/bge-large-en-v1.5 | 1.3GB VRAM; co-hosted on Node B alongside the coder model |
+| Code parsing | Tree-sitter | Real AST — not regex, not line-count chunking |
+| Graph + vector store | PostgreSQL 16 + pgvector | One DB, not two; relational schema handles import edges naturally |
+| Sandbox | Docker (Moby) | Ephemeral per-attempt; only the repo slice gets mounted |
+| Node transport | gRPC (Protocol Buffers) | Typed, streaming, binary — right choice over raw WebSockets for agent payloads |
+| Auth | TLS + pre-shared token | Audited. Do not roll your own crypto. |
+| Dashboard | Next.js 14 + shadcn/ui | Server components for log streaming; WebSocket for live state |
+| Dashboard state | Zustand | Minimal; no Redux overhead for a 3-person project |
+| CLI | Typer (Python) | Generates `--help` from type annotations automatically |
+| CI | GitHub Actions | Lint + integration tests on every PR |
+| Language targets | Python first, TypeScript phase 2 | Expand after the core works, not before |
+
+---
+
+## Hardware fit — real numbers
+
+| Machine | Model loaded | VRAM used | Context headroom | Job |
+|---------|-------------|-----------|-----------------|-----|
+| Node A (3050 · 6GB) | Phi-3-Mini 4-bit GGUF | ~3.1GB | ~1.8GB free for KV cache | Supervisor, state tracking, routing, Reaper |
+| Node B (4060 · 8GB) | Qwen2.5-Coder-7B 4-bit AWQ + bge-large | ~4.1GB + 1.3GB = 5.4GB | ~2.6GB for 16k context | Code planning, implementation, AST retrieval |
+| Node C (4060 · 8GB) | No model (CPU-only tasks) | 0GB | Full 8GB available for Docker | Test execution, sandboxing, checkpointing |
+
+Node C carries **zero model load** — its VRAM is completely available to Docker for heavy test workloads. This is intentional.
+
+---
+
+## Competitive positioning — honest version
+
+| Tool | Stars (Jul 2026) | Cloud required | Loop-breaking | AST retrieval | Self-hosted LLM |
+|------|-----------------|----------------|--------------|--------------|----------------|
+| OpenHands | ~78.5k | No (Docker) | No | No | Partial |
+| Cline | ~63k | No | No | No | Yes |
+| Aider | ~46k | No | No | Tree-sitter map (read-only) | Yes |
+| Devin | Closed-source | Yes (cloud-only) | Partial | Unknown | No |
+| **HydraNet (ʊ-Net)** | **Building** | **No** | **Yes — Reaper Protocol** | **Yes — graph walk** | **Yes** |
+
+We are not trying to replace any of these. Cline is excellent. Aider is excellent. We are trying to do one thing none of them do: systematically detect and break dead code-fix loops on local hardware, and surface the decision history so the developer can audit it.
+
+---
+
+## The Build Phases
+
+> Six phases, three people, one feature at a time. Each phase ends with a **demo milestone** — something you can screen-record. No phase unlocks until the previous demo works.
+
+| Phase | Name | Demo milestone | Lead owner |
+|-------|------|---------------|------------|
+| **Ⅰ** | Single-Node Agent | CLI fixes a real Python bug, end-to-end, on one laptop inside Docker | All three |
+| **Ⅱ** | The Reaper Protocol | Agent backtracks after 3 spiral attempts — recorded side-by-side vs. baseline | M. Yadav |
+| **Ⅲ** | AST Graph Retrieval | Side-by-side: flat embeddings misses the bug, graph walk finds it | Y. Jangra |
+| **Ⅳ** | Three-Node Mesh | Phase Ⅰ CLI command runs across all 3 physical laptops | M. Yadav |
+| **Ⅴ** | War Room Dashboard | Live UI showing genealogy tree, node meters, state stream | Y. Jangra |
+| **Ⅵ** | Benchmark + Ship | Real SWE-bench Lite numbers published, failures included | B. Kataria |
+
+---
+
+## Phase Task Tables
+
+> Checkboxes render in GitHub but are only click-to-toggle inside Issues/PRs — not in a flat `.md` file.  
+> To mark done: change `- [ ]` → `- [x]` and commit, or mirror to a GitHub Project board.
+
+---
+
+### Phase Ⅰ — Single-Node Agent Loop
+
+*Goal: one laptop, one bug, fixed end-to-end. No networking. No multi-node. Just the core loop working.*
+
+| # | M. Yadav — Orchestration & State Machine | Y. Jangra — Inference & Prompting | B. Kataria — Sandbox & Execution |
+|---|------------------------------------------|-----------------------------------|-----------------------------------|
+| 01 | - [ ] Scaffold monorepo (packages: `orchestrator`, `inference`, `sandbox`, `dashboard`, `shared`) with `uv` workspaces and strict `pyproject.toml` | - [ ] Set up Ollama serving Qwen2.5-Coder-7B-Instruct (4-bit AWQ) on Node B, confirm it starts under 4.5GB VRAM | - [ ] Write the base Dockerfile: Python 3.11-slim, pinned system deps, no root, no host network |
+| 02 | - [ ] Build the core 5-state machine: `PLAN → IMPLEMENT → TEST → REFLECT → DONE/ABORT` | - [ ] Benchmark tokens/sec and maximum usable context at 4-bit on 8GB — write the numbers down | - [ ] Build `SandboxManager`: create container, mount repo slice, exec commands, capture stdout/stderr separately |
+| 03 | - [ ] Write the Typer CLI entrypoint: `hydra fix --repo PATH --issue "description"` | - [ ] Write `InferenceClient` wrapper: POST to Ollama, stream tokens, timeout after N seconds | - [ ] Implement command safety guard: block `rm -rf /`, `chown`, `chmod 777`, stray `curl` — log blocked attempts |
+| 04 | - [ ] Build the agent tool set in Phase Ⅰ scope: `read_file`, `write_file`, `list_dir`, `run_shell` | - [ ] Write the `PLAN` prompt: given issue + repo structure, output a numbered step list as JSON | - [ ] Build `ResultParser`: structured pass/fail/error signal from pytest/jest stdout |
+| 05 | - [ ] Build the state transition router: map tool outputs to next state | - [ ] Write the `IMPLEMENT` prompt: given step N from the plan and file contents, output a unified diff | - [ ] Implement container health check loop: confirm sandbox is live before routing any commands to it |
+| 06 | - [ ] Build the `RunLogger`: append every state, tool call, output, and timestamp to a JSONL file | - [ ] Write the `REFLECT` prompt: given test failure output, what is the most likely root cause? | - [ ] Build volume mount controller: mount only the relevant subdirectory, not the entire host |
+| 07 | - [ ] Add a hard execution budget: max N steps, max M tokens, abort with a clear log entry on breach | - [ ] Write `StructuredOutputParser`: extract JSON from model output even when the model wraps it in markdown prose | - [ ] Implement container teardown: stop, remove, prune volumes on success, failure, or crash |
+| 08 | - [ ] Write the config system: `hydra.config.json` for model endpoints, timeouts, retry limits, budget | - [ ] Build the diff-apply utility: takes a unified diff string, validates it, applies it to the file | - [ ] Build environment variable injection: pass API keys and config into the container without leaking to host |
+| 09 | - [ ] Write integration test: seed a known bug in a toy repo, run the CLI, assert the file changed correctly | - [ ] Write prompt version control: every prompt is a named, versioned `.md` template — no hardcoded strings | - [ ] Write integration test: mount a toy repo, run `pytest`, assert result parser returns the right structure |
+| 10 | - [ ] **Phase Ⅰ demo:** record the terminal showing the CLI fixing a real bug in a real small repo | - [ ] **Phase Ⅰ demo:** document exact VRAM and latency numbers from the run | - [ ] **Phase Ⅰ demo:** record the Docker logs showing clean spin-up, execution, and teardown |
+
+---
+
+### Phase Ⅱ — The Reaper Protocol
+
+*Goal: convergence scoring, loop detection, git-based rollback, forced re-plan. The core feature of the whole project.*
+
+| # | M. Yadav — Reaper Engine & Convergence | Y. Jangra — Reflection Prompting & Analysis | B. Kataria — Workspace Checkpoints & Rollback |
+|---|------------------------------------------|----------------------------------------------|-----------------------------------------------|
+| 01 | - [ ] Design the `ConvergenceDetector` interface: inputs (diff history, command history, stderr history), output (score 0–1) | - [ ] Write `SelfReflectionPrompt`: given N failed attempts, produce structured analysis of why each one failed | - [ ] Build `WorkspaceCheckpointer`: git branch per attempt (`hydra/attempt-001`, etc.) — no raw `--hard` resets |
+| 02 | - [ ] Implement `patch_similarity()`: normalized edit distance between the last two diffs (Levenshtein on the changed line sets) | - [ ] Write `ForcedStrategyShiftPrompt`: inject the full failure history and explicitly forbid the dead approach | - [ ] Build `RollbackEngine`: given a branch name, reset the working tree to that branch's HEAD cleanly |
+| 03 | - [ ] Implement `command_repetition_rate()`: sliding window over last k shell commands, compute repetition fraction | - [ ] Write `StackTraceParser`: extract file, line, error type from Python/Node/Go stack traces into a structured dict | - [ ] Build `DiffCalculator`: fast diff between two directory snapshots without calling git (for in-flight comparison) |
+| 04 | - [ ] Implement `error_signature_match()`: hash the dominant error type + file from stderr; compare across attempts | - [ ] Build `FailureMemoryStore`: an in-session store of (attempt_n, strategy, result, error_signature) injected into every subsequent prompt | - [ ] Build `BranchCleaner`: prune dead `hydra/attempt-*` branches after a successful run, keep them on failure for audit |
+| 05 | - [ ] Implement the weighted `convergence_score` aggregation with configurable α, β, γ weights | - [ ] Write `HypothesisGeneratorPrompt`: given the failure tree so far, generate 3 alternative approaches — pick the highest-confidence one | - [ ] Implement `TransactionWrapper`: wrap all file writes in a "commit or rollback" unit — partial writes don't leave a corrupted state |
+| 06 | - [ ] Build the `ReaperHook`: fires when convergence score > threshold, halts the current branch, emits a `REAPER_FIRED` event | - [ ] Write `ApproachRankingPrompt`: given a list of candidate strategies, score each by estimated probability of success | - [ ] Build sandbox reset on rollback: container is torn down and re-spun from the checkpoint branch state |
+| 07 | - [ ] Build the `BranchManager`: creates a new git branch per approach, tracks the genealogy tree as a JSON structure | - [ ] Run a controlled A/B test: 10 seeded bugs, baseline vs. Reaper agent — measure attempts-to-resolution and token spend | - [ ] Write `CheckpointMetadata`: record what files were changed, what tests ran, what the exit code was at each checkpoint |
+| 08 | - [ ] Build the `ReaperNotifier`: publish the `REAPER_FIRED` event to the WebSocket stream so the dashboard can react | - [ ] Write `ErrorClassifier`: buckets stderr into (syntax error / type error / runtime error / test assertion / unknown) for better prompt routing | - [ ] Write integration test: inject a bug that requires finding the root cause 2 files upstream — assert the Reaper fires and the final answer is correct |
+| 09 | - [ ] Build a `SpiralSimulator` test harness: feed the agent a bug that has no solution at the file it's looking at — verify Reaper fires at the right threshold | - [ ] Write `PostMortemReport`: after a successful run, generate a human-readable explanation of every strategy attempted and why each was abandoned | - [ ] Implement filesystem-level cleanup between rollbacks: stale `.pyc`, `__pycache__`, `node_modules/.cache` removed automatically |
+| 10 | - [ ] **Phase Ⅱ demo:** side-by-side screen recording — baseline agent looping 20+ times vs. HydraNet backtracking after 3 and solving it | - [ ] **Phase Ⅱ demo:** show the `PostMortemReport` output for the demo bug | - [ ] **Phase Ⅱ demo:** show the git log with per-attempt branches and rollback history |
+
+---
+
+### Phase Ⅲ — AST Graph Retrieval
+
+*Goal: structural code search. The bug three hops from the error site gets found. Flat embeddings don't.*
+
+| # | M. Yadav — Graph Store & Query Layer | Y. Jangra — AST Parser & Index Builder | B. Kataria — Hybrid Retrieval & Context Assembly |
+|---|--------------------------------------|----------------------------------------|--------------------------------------------------|
+| 01 | - [ ] Deploy pgvector on the Node A Postgres 16 instance; write the schema migration | - [ ] Wire Tree-sitter Python grammar; parse a file into a `FunctionDef`, `ClassDef`, `Import` node list | - [ ] Build `HybridSearchEngine`: cosine similarity (pgvector) + BM25 keyword match + graph-neighbor expansion |
+| 02 | - [ ] Design the graph schema: `code_nodes(id, file, type, name, signature, embedding)`, `code_edges(src, dst, edge_type)` | - [ ] Extract call graph: for each function call in the AST, record which function it calls and in which file | - [ ] Implement `ParentChildExpander`: when a function chunk matches, pull in its containing class and the file's import block |
+| 03 | - [ ] Build `IndexManager`: on `hydra fix`, scan the repo, parse every `.py` file, embed chunks, upsert into pgvector | - [ ] Extract import graph: for each `import` or `from ... import`, record the source-target file edge | - [ ] Build `GraphHopRetriever`: given a seed node, walk the import/call graph up to depth N and collect reachable nodes |
+| 04 | - [ ] Build incremental indexing: hash each file's content; only re-embed files that changed since the last run | - [ ] Implement `ASTHasher`: stable hash per function/class body — change detection without full re-parse | - [ ] Implement `StructuralRanker`: weight nodes higher that are imported by many other files in the repo |
+| 05 | - [ ] Build a `VectorCacheLayer`: LRU cache on the 100 most-recently-retrieved code chunks to avoid repeated DB round-trips | - [ ] Wire Tree-sitter TypeScript grammar; test the same parser pipeline on a `.ts` file | - [ ] Build `ArtifactFilter`: skip `node_modules/`, `venv/`, `dist/`, `*.lock`, `*.pyc`, `__pycache__/` at index time |
+| 06 | - [ ] Build the `RetrievalAPI` endpoint the orchestrator calls: `retrieve(error_context, k=10)` → list of ranked `CodeChunk` | - [ ] Build `MetadataExtractor`: function signatures, docstrings, type annotations — stored alongside each node for richer prompt context | - [ ] Build `ContextAssembler`: takes a list of `CodeChunk` objects, orders them logically, formats them into a clean prompt block |
+| 07 | - [ ] Write a `RetrievalEval` harness: 20 seeded bugs, measure recall (did the root-cause file appear in top-10 results?) | - [ ] Implement `SyntaxErrorLocator`: when the agent writes invalid syntax, the AST parser pinpoints the exact broken bracket and reports it back | - [ ] Build `TokenBudgetConstraint`: trim the retrieved context to fit within the model's context window without cutting mid-function |
+| 08 | - [ ] Write stress test: index a 10k-file open-source repo (e.g., `django`), measure indexing time and query latency | - [ ] Build `CrossLanguageEdge`: record edges where a Python file calls a TypeScript endpoint (REST boundary detection) | - [ ] Build `RelevanceFeedbackLoop`: after a successful run, upweight the nodes that appeared in the final fix for future queries on similar errors |
+| 09 | - [ ] Add `IndexHealth` CLI command: `hydra index-status --repo PATH` — shows stale files, coverage %, last-indexed timestamp | - [ ] Write `ASTVisualizerCLI`: `hydra ast-graph --repo PATH --file auth.py` — pretty-print the call graph as ASCII | - [ ] Write `RetrievalComparisonTest`: same 20 bugs, run flat-embedding retrieval vs. graph-walk retrieval, compare recall numbers |
+| 10 | - [ ] **Phase Ⅲ demo:** one bug that flat search misses, graph walk finds — show the exact query path through the graph | - [ ] **Phase Ⅲ demo:** show `hydra ast-graph` output for the demo repo | - [ ] **Phase Ⅲ demo:** publish the recall comparison table — flat embeddings vs. graph walk, on 20 real bugs |
+
+---
+
+### Phase Ⅳ — Three-Node Mesh
+
+*Goal: the Phase Ⅰ CLI command runs across all three physical laptops over WiFi. Supervisor on A, inference on B, sandbox on C.*
+
+| # | M. Yadav — Supervisor Network Core | Y. Jangra — Inference Worker Service | B. Kataria — Sandbox Worker Service |
+|---|-------------------------------------|---------------------------------------|--------------------------------------|
+| 01 | - [ ] Design the gRPC proto definitions: `OrchestratorService`, `InferenceService`, `SandboxService` — commit these as the v1 contract | - [ ] Wrap the Ollama inference engine as a gRPC `InferenceService` server on Node B | - [ ] Wrap the Docker sandbox as a gRPC `SandboxService` server on Node C |
+| 02 | - [ ] Build the `SupervisorRouter`: dispatch `CodeTask` to Node B, `TestTask` to Node C, based on task type | - [ ] Implement streaming gRPC: stream inference tokens back to the supervisor as they generate, don't wait for completion | - [ ] Build `SecureTransfer`: before sending a repo slice to Node C, tar only the relevant subdirectory — don't send the whole repo |
+| 03 | - [ ] Build the `HeartbeatMonitor`: ping each worker every 5s, mark as `UNHEALTHY` after 3 missed beats | - [ ] Implement `BackpressureController` on Node B: reject new requests with `UNAVAILABLE` if the current context is nearly full | - [ ] Build the sandbox gRPC handler: receive a repo slice, materialize it in a temp directory, execute, return structured results |
+| 04 | - [ ] Build worker failover: if Node B goes `UNHEALTHY` mid-task, emit `NODE_LOST` event, pause execution, wait for reconnect | - [ ] Add request queuing on Node B: buffer incoming tasks during model warmup so they don't timeout immediately | - [ ] Add basic auth to the gRPC server: mutual TLS + pre-shared service token — no device on the LAN that doesn't have the token can connect |
+| 05 | - [ ] Build `NodeRegistry`: Node B and Node C announce themselves with `hydra join --host IP --role` on startup | - [ ] Implement graceful shutdown on Node B: finish the in-flight inference before stopping, don't cut mid-generation | - [ ] Implement sandbox isolation hardening: no outbound network from containers, cgroup limits on CPU and RAM |
+| 06 | - [ ] Build `ResourceMatrix`: supervisor tracks Node B VRAM usage and Node C container count; routes based on capacity | - [ ] Measure and document the round-trip latency added by the network hop — this number is important for honest benchmarking | - [ ] Build `ContainerPooling`: keep N warm empty containers ready to accept a job without cold-start overhead |
+| 07 | - [ ] Build `EventBroadcaster`: all significant events (task dispatched, Reaper fired, test passed) go to the WebSocket stream | - [ ] Add automatic model reload on Node B if Ollama crashes: detect the dead process, restart it, re-warm the model | - [ ] Build `SandboxTelemetry`: emit container CPU, RAM, and disk I/O back to the supervisor's ResourceMatrix |
+| 08 | - [ ] Write `ClusterHealthCLI`: `hydra cluster status` — show all connected nodes, their load, and their last heartbeat | - [ ] Write integration test: kill Node B mid-inference, confirm the supervisor emits `NODE_LOST` and pauses cleanly | - [ ] Write integration test: kill Node C mid-test, confirm the sandbox job is retried on restart |
+| 09 | - [ ] Write network load test: sustain a 2-hour run on a real repo, measure packet loss, latency jitter, and recovery from a brief WiFi dropout | - [ ] Write `InferenceMetricsExporter`: publish tokens/sec, queue depth, and context utilization over gRPC to the supervisor | - [ ] Document the exact WiFi setup (channel, band, AP distance) used in the test — this matters for reproducibility |
+| 10 | - [ ] **Phase Ⅳ demo:** three laptops on a table, one `hydra fix` command, all three terminals active — screen record the full run | - [ ] **Phase Ⅳ demo:** show the cluster status CLI output during the run | - [ ] **Phase Ⅳ demo:** show the teardown — all three nodes clean up gracefully after the task completes |
+
+---
+
+### Phase Ⅴ — War Room Dashboard
+
+*Goal: a live, screen-recordable UI showing agent state, genealogy tree, node meters, and manual override controls.*
+
+| # | M. Yadav — WebSocket Server & Backend Events | Y. Jangra — Frontend Components | B. Kataria — State Management & Controls |
+|---|----------------------------------------------|----------------------------------|------------------------------------------|
+| 01 | - [ ] Build the WebSocket event server on Node A: one connection per client, one event stream per active run | - [ ] Scaffold the Next.js 14 app with App Router, shadcn/ui components, and Tailwind — minimal, dark, terminal-inspired | - [ ] Build the Zustand store: normalize incoming WebSocket events into `currentRun`, `nodes`, `genealogy`, `logs` slices |
+| 02 | - [ ] Define the full event schema: `TASK_DISPATCHED`, `AGENT_THOUGHT`, `TOOL_CALLED`, `TOOL_RESULT`, `REAPER_FIRED`, `BRANCH_CREATED`, `TEST_PASSED`, `RUN_COMPLETE` | - [ ] Build `LiveLogStream`: virtualized list of incoming agent thought/action/observation events, scrolls automatically | - [ ] Build `WebSocketClient`: auto-reconnects on drop, emits a `DISCONNECTED` banner in the UI, resumes stream on reconnect |
+| 03 | - [ ] Build `JWT auth` for the dashboard WebSocket endpoint: generate a token with `hydra dashboard-token`, required in the WS URL | - [ ] Build `GenealogyTree`: interactive tree view of all attempted branches, color-coded (green=pass, red=dead, amber=active) | - [ ] Build `RunControlPanel`: Pause button → sends `PAUSE` command to the supervisor; Abort button → sends `ABORT`; Resume → sends `RESUME` |
+| 04 | - [ ] Build `RunHistoryStore`: every completed run written to SQLite; endpoint to list past runs and serve their event log | - [ ] Build `NodeMeterPanel`: VRAM bar for Node B, container count for Node C, heartbeat indicator for all three | - [ ] Build `HumanGateModal`: when the supervisor emits `AWAITING_APPROVAL`, the UI blocks and shows the proposed change for human sign-off |
+| 05 | - [ ] Build `LogExportEndpoint`: `GET /api/runs/{id}/export` → returns the full JSONL event log as a downloadable file | - [ ] Build `DiffViewer`: side-by-side diff of the current file edit with syntax highlighting (use `react-diff-viewer-continued`) | - [ ] Build `OverridePromptBox`: text field that injects a human instruction into the current REFLECT step mid-run |
+| 06 | - [ ] Build streaming compression: compress large log payloads before sending over WebSocket to avoid browser frame drops | - [ ] Build `ConvergenceGauge`: real-time 0–1 gauge for the current approach's convergence score — turns red as it approaches 0.75 | - [ ] Build `SessionReplayViewer`: for any past run in history, step through events one at a time like a video scrubber |
+| 07 | - [ ] Add `RateThrottler` on the WebSocket server: if events arrive faster than 60/sec, batch and debounce before sending to client | - [ ] Build `WarRoomMode`: fullscreen split view with Genealogy + LiveLog + NodeMeters + ConvergenceGauge all visible simultaneously | - [ ] Build `AlertSystem`: toast notifications for `REAPER_FIRED`, `NODE_LOST`, `TEST_PASSED`, `RUN_COMPLETE` — distinct visual style per type |
+| 08 | - [ ] Write a `FuzzerTest` for the WebSocket server: send 10,000 random events per second, assert the server doesn't drop events or crash | - [ ] Build `MobileResponsiveness`: the dashboard must be readable on a phone screen (for checking a run while away from the desk) | - [ ] Build `ThemeToggle`: light/dark mode without a page reload — because dark mode is the default but not everyone wants it |
+| 09 | - [ ] Build `MultiClientBroadcast`: two browsers can be connected simultaneously and see the same live run without interfering | - [ ] Write Playwright end-to-end tests for the UI: connect to a mock WebSocket, feed it a scripted event stream, assert UI state | - [ ] Write `BundleAudit`: `next build` output must stay under 300kB JS per route — enforce with a CI check |
+| 10 | - [ ] **Phase Ⅴ demo:** screen record War Room Mode on a live three-node run — show the genealogy tree growing in real-time as the Reaper fires | - [ ] **Phase Ⅴ demo:** show the ConvergenceGauge going red and the `REAPER_FIRED` toast appearing | - [ ] **Phase Ⅴ demo:** show the human override in action — type a correction mid-run and watch the agent change direction |
+
+---
+
+### Phase Ⅵ — Benchmark, Harden, Ship
+
+*Goal: real SWE-bench Lite numbers (failures published too), a clean repo, and a launch the developer community can actually trust.*
+
+| # | M. Yadav — Hardening & Production Polish | Y. Jangra — Benchmarks & Documentation | B. Kataria — Launch & Community Setup |
+|---|-------------------------------------------|----------------------------------------|---------------------------------------|
+| 01 | - [ ] Run a 48-hour soak test across all three nodes on a real medium-sized repo — log every crash and fix every one | - [ ] Select a representative 50-issue slice from SWE-bench Lite; document the selection methodology | - [ ] Rewrite the README intro section now that there's a real demo — replace every claim with a link to the evidence |
+| 02 | - [ ] Pin all dependency versions in `pyproject.toml` and `package.json`; run `pip-audit` and `npm audit` — fix critical CVEs | - [ ] Run HydraNet against all 50 issues; record pass/fail/reaper-fired/timeout for each | - [ ] Record the final demo video: unscripted, 2–3 minutes, War Room Mode on a real bug — raw > produced |
+| 03 | - [ ] Write a `SetupVerifier` CLI command: `hydra doctor` — checks Docker, Ollama, Postgres, Node B/C connectivity, and reports clearly | - [ ] Publish the raw benchmark data in `/benchmarks/results.json` — every issue ID, outcome, number of attempts, tokens used | - [ ] Write `CONTRIBUTING.md`: how to set up a dev environment, how to run tests, PR standards, commit message convention |
+| 04 | - [ ] Write the security hardening doc: sandbox network isolation, API token storage, what data leaves the machine (nothing, unless you configure a cloud fallback) | - [ ] Write a fair comparison table: HydraNet vs. Aider vs. OpenHands vs. Cline on the same 50 issues — use their published numbers where available | - [ ] Set up issue templates: Bug Report, Feature Request, Question — with enough structure that a first-time contributor can use them |
+| 05 | - [ ] Build the single-command installer: `curl -sSf https://raw.githubusercontent.com/mohityadav8/hydranet/main/install.sh | bash` — tested on Ubuntu 22.04, Debian 12, WSL2 | - [ ] Write the architecture deep-dive doc in `/docs/architecture.md`: every decision and the reasoning behind it, including the wrong paths taken | - [ ] Write `SECURITY.md`: how to report a vulnerability, response timeline, what's in scope |
+| 06 | - [ ] Write `hydra cluster init` for first-time setup: generates the pre-shared token, writes `hydra.config.json` on all three machines | - [ ] Write the model selection guide: what fits in 6GB, what fits in 8GB, what to do if you have less | - [ ] Set up GitHub Actions: `lint-and-test.yml` runs on every PR, `benchmark-nightly.yml` runs the 50-issue suite weekly |
+| 07 | - [ ] Write `hydra update` command: pull the latest version, run migrations if the DB schema changed | - [ ] Write the `Getting Started in 30 minutes` tutorial: assumes three laptops and a WiFi router, nothing else | - [ ] Build the static documentation site (`/docs`) using Docusaurus — hosted on GitHub Pages |
+| 08 | - [ ] Do a dependency audit: remove anything that isn't used; freeze the rest | - [ ] Write the prompt engineering guide: how to get better results from HydraNet by writing better issue descriptions | - [ ] Draft the Hacker News launch post: lead with the benchmark numbers and the Genealogy View, not the marketing pitch |
+| 09 | - [ ] Final repo cleanup: remove all API keys, temp files, debug branches, TODOs that aren't filed as issues | - [ ] Write the failure analysis doc: which bugs HydraNet consistently fails on, and what the known limitations are | - [ ] Draft the r/LocalLLaMA post: hardware requirements, model choices, honest expectations — the community will validate or destroy the claims, so be accurate |
+| 10 | - [ ] **Ship:** tag `v0.1.0`, push, publish to GitHub | - [ ] **Ship:** post the benchmark report alongside the release | - [ ] **Ship:** Hacker News, r/LocalLLaMA, r/MachineLearning — 7:00 AM PST on a Tuesday |
+
+---
+
+## Getting Started
+
+*This is the target interface. Build this across Phase Ⅰ and Phase Ⅳ.*
 
 ```bash
-git clone <repo-url>
-cd loopcutter
+# Install (Phase Ⅵ target)
+curl -sSf https://raw.githubusercontent.com/mohityadav8/hydranet/main/install.sh | bash
 
-# Node A — orchestrator (Mohit's machine)
-docker compose up -d                        # postgres + pgvector
-python -m orchestrator.cli serve --port 8080
+# Or from source
+git clone https://github.com/mohityadav8/hydranet
+cd hydranet
+uv sync
 
-# Node B / Node C — worker machines
-python -m worker.cli connect --host <orchestrator-ip>:8080 --role inference
-python -m worker.cli connect --host <orchestrator-ip>:8080 --role sandbox
+# First-time cluster setup — run once on Node A (M. Yadav's machine)
+hydra cluster init
+# → Generates hydra.config.json with a shared token
+# → Prints the join command for Node B and Node C
 
-# run it
-python -m orchestrator.cli fix --repo ./target_repo --issue "auth fails on logout"
+# Node B and Node C — run this on each worker machine
+hydra join --host 192.168.1.XX:50051 --role inference   # Node B
+hydra join --host 192.168.1.XX:50051 --role sandbox     # Node C
+
+# Check the cluster is healthy
+hydra cluster status
+# NODE A  supervisor  HEALTHY  6.2GB VRAM free
+# NODE B  inference   HEALTHY  3.8GB VRAM free  Qwen2.5-Coder-7B loaded
+# NODE C  sandbox     HEALTHY  0 containers running
+
+# Index a repository
+hydra index --repo ./my-project
+
+# Fix a bug
+hydra fix --repo ./my-project --issue "TypeError: Cannot read property 'id' of undefined in auth.ts:47"
+
+# Open the War Room dashboard
+hydra dashboard
+# → http://localhost:3000  (token in hydra.config.json)
 ```
 
 ---
 
-## Month-by-month task list
+## Benchmarks
 
-Checkboxes below track progress. Heads up: GitHub only makes `- [ ]` boxes *clickable* inside Issues, PRs, and Discussions — in a plain repo file like this one they render but aren't toggleable by clicking. Either edit `- [ ]` → `- [x]` and commit, or mirror this list into a GitHub Project board / Issues if you want literal click-to-check.
+*Phase Ⅵ target. No results yet. This section will be updated with real numbers when the benchmark run completes.*
 
-### Month 1 — Single-machine agent loop
+| Metric | Target | Actual (post Phase Ⅵ) |
+|--------|--------|----------------------|
+| SWE-bench Lite issues (50-issue slice) | Run all 50 | TBD |
+| Issues resolved (pass@1) | Publish honestly | TBD |
+| Mean attempts before resolution | — | TBD |
+| Mean attempts before Reaper fires | < 4 | TBD |
+| Reaper false-positive rate | < 5% | TBD |
+| Mean tokens per resolved issue | — | TBD |
+| Indexing speed (django repo, 1k files) | < 3 minutes | TBD |
+| Retrieval latency p99 | < 200ms | TBD |
 
-**M. Yadav — Orchestration**
-- [ ] Scaffold the repo (package layout, linting/formatting config)
-- [ ] Build the core agent state machine in LangGraph: read → plan → edit → test → reflect
-- [ ] Build the CLI entrypoint (`loopcutter fix --repo --issue`)
-- [ ] Add structured logging / run tracing so every step is inspectable later
-- [ ] Write the config system (model choice, paths, retry limits) as one YAML/JSON file
-- [ ] Get one real bug, in one real small repo, fixed end-to-end — this is the Month-1 finish line
+The failure cases will be documented in `/benchmarks/failures.md`. Issues that HydraNet consistently fails on are as important to publish as the ones it solves.
 
-**Y. Jangra — Inference**
-- [ ] Set up Ollama or vLLM serving a quantized 7–8B coder model on a 4060
-- [ ] Benchmark tokens/sec and usable context length at 4-bit on 8GB VRAM
-- [ ] Build an inference client wrapper with timeouts, retries, streaming
-- [ ] Write the first prompt templates: plan, edit, test-result-interpretation
-- [ ] Add structured-output parsing so responses come back as reliable JSON, not prose
-- [ ] Document exact VRAM usage at different context lengths — this becomes your scoping data later
+---
 
-**B. Kataria — Sandboxing**
-- [ ] Write a base Dockerfile for a Python sandbox (pinned versions, no host leakage)
-- [ ] Build host-to-container file sync for the working repo
-- [ ] Add a command-safety guard (block `rm -rf`, `chown`, stray network calls, etc.)
-- [ ] Capture stdout/stderr from the sandbox cleanly and separately
-- [ ] Build container lifecycle management (spin up, kill, clean up on crash)
-- [ ] Wire `pytest` execution inside the sandbox with a clear pass/fail signal back out
+## Project Structure
 
-### Month 2 — Loop detection & backtracking *(the signature feature)*
+```
+hydranet/
+├── packages/
+│   ├── orchestrator/          # Node A — state machine, Reaper, routing, WebSocket server
+│   │   ├── state_machine.py
+│   │   ├── reaper.py
+│   │   ├── convergence.py
+│   │   ├── router.py
+│   │   └── cli.py
+│   ├── inference/             # Node B — model server, AST parser, retrieval
+│   │   ├── server.py          # gRPC InferenceService
+│   │   ├── ast_parser.py
+│   │   ├── retrieval.py
+│   │   └── prompts/           # versioned prompt templates
+│   ├── sandbox/               # Node C — Docker manager, test executor
+│   │   ├── server.py          # gRPC SandboxService
+│   │   ├── docker_manager.py
+│   │   ├── executor.py
+│   │   └── checkpoint.py
+│   ├── dashboard/             # Next.js frontend
+│   │   ├── app/
+│   │   ├── components/
+│   │   │   ├── GenealogyTree.tsx
+│   │   │   ├── ConvergenceGauge.tsx
+│   │   │   ├── NodeMeters.tsx
+│   │   │   └── WarRoomLayout.tsx
+│   │   └── lib/
+│   └── shared/                # Proto definitions, types, constants
+│       ├── proto/
+│       │   ├── orchestrator.proto
+│       │   ├── inference.proto
+│       │   └── sandbox.proto
+│       └── types.py
+├── benchmarks/
+│   ├── results.json           # Phase Ⅵ — real numbers go here
+│   └── failures.md            # documented failure cases
+├── docs/
+│   ├── architecture.md
+│   ├── getting-started.md
+│   └── model-selection.md
+├── hydra.config.json.example
+├── install.sh
+├── docker-compose.yml         # Node A local services (Postgres, pgvector)
+├── pyproject.toml
+└── README.md
+```
 
-**M. Yadav**
-- [ ] Build a repetition detector comparing shell-command + diff history across attempts
-- [ ] Define and tune the "stuck" threshold (start at 3 near-identical attempts, make it configurable)
-- [ ] Build the intercept hook that halts execution once the threshold is hit
-- [ ] Build a git-based checkpoint/rollback engine (branch-per-attempt, not raw `--hard` resets)
-- [ ] Write the policy logic: retries-before-rollback, what gets logged when it fires
-- [ ] Build a test harness that simulates a "death loop" so you can test the breaker on demand
+---
 
-**Y. Jangra**
-- [ ] Design the self-reflection prompt: model states *why* the last attempt failed before retrying
-- [ ] Inject failure history into the next prompt ("you tried X, it failed because Y, try differently")
-- [ ] Make reflection + plan output reliable structured JSON
-- [ ] Parse stack traces for the actual file/line instead of feeding the model a raw wall of text
-- [ ] Run a controlled comparison: loop-breaking agent vs. baseline, on the same 5 seeded bugs
-- [ ] Write up the numbers — attempts-to-resolution, not vibes
+## Why we chose these tools and not the alternatives
 
-**B. Kataria**
-- [ ] Build cheap workspace snapshotting (don't re-clone the whole repo every checkpoint)
-- [ ] Build the diff calculator showing exactly what changed between attempts
-- [ ] Implement branch-per-attempt so failed tries don't pollute the main working branch
-- [ ] Add automated cleanup of dead branches and orphaned containers
-- [ ] Wire test results back into the loop-detector as a structured pass/fail/error signal
-- [ ] Record the demo: baseline agent looping forever vs. yours backtracking in 3 attempts
+| Decision | What we chose | What we considered | Why |
+|----------|--------------|-------------------|-----|
+| Orchestration | LangGraph | AutoGen, custom FSM | Cyclic graphs with explicit state are the right abstraction for retry/rollback. AutoGen is better for fully autonomous multi-agent but harder to add deterministic interception points. |
+| Transport | gRPC | raw WebSocket, ZeroMQ, NATS | gRPC gives typed contracts (via .proto), streaming, and TLS without additional infrastructure. NATS would be better at higher node counts — not needed for three nodes. |
+| Vector store | pgvector in Postgres | Qdrant, Weaviate | One service to run, one backup strategy, relational schema handles the edge table cleanly. Qdrant is worth switching to if query latency becomes a bottleneck after real benchmarking. |
+| Code parser | Tree-sitter | regex, `ast` module, ANTLR | Tree-sitter handles syntax errors gracefully (unlike Python's `ast` module), supports 100+ languages, and has good Python bindings. |
+| Auth | TLS + pre-shared token | Custom RSA handshake | Rolling your own crypto is an entire project. TLS is already audited, one dependency, done. |
+| Container | Docker | systemd-nspawn, Firecracker | Docker has the widest support across the three operating environments (Windows WSL2, Ubuntu, etc.) that are likely on these machines. |
 
-### Month 3 — AST-aware code RAG
+---
 
-**M. Yadav**
-- [ ] Set up pgvector on the Node A Postgres instance
-- [ ] Design the schema: code chunks, function/class nodes, import edges
-- [ ] Build incremental re-indexing on file change (no full re-embed per run)
-- [ ] Add query-time context-compression so retrieved code fits the model's context window
-- [ ] Build a retrieval API the agent calls, instead of dumping raw results into the prompt
-- [ ] Load-test indexing on a real medium-sized open-source repo, not a toy example
+## What this project is not trying to be
 
-**Y. Jangra**
-- [ ] Wire up Tree-sitter parsing for Python first — expand languages later, not now
-- [ ] Extract functions, classes, imports, and call relationships into a graph
-- [ ] Chunk code by logical unit (function/class), not arbitrary line counts
-- [ ] Build the import/call graph that lets retrieval "hop" to related files
-- [ ] Run the same seeded bug set through flat-embedding search vs. AST-aware search
-- [ ] Write up the recall comparison — your strongest, most concrete README evidence
+- A replacement for Cline, Aider, or OpenHands. Those are excellent. Use them.
+- A free, self-hosted Devin. Devin's strength is cloud compute, parallel sessions, and enterprise integrations. That's a different product category.
+- A VRAM-pooling system that merges three GPUs into one. That's tensor-parallel inference, a separate engineering challenge.
+- A tool that hits 70%+ on SWE-bench. The frontier models with 1M-token context windows running on datacenter GPUs are the right tool for that benchmark at scale. Seven-billion-parameter 4-bit models on laptops are not.
 
-**B. Kataria**
-- [ ] Build hybrid retrieval: vector similarity + keyword match + graph-neighbor expansion
-- [ ] Add filters to skip `node_modules`, `venv`, build artifacts, lockfiles
-- [ ] Build the context assembler turning retrieved chunks into a clean prompt block
-- [ ] Add a small eval harness measuring retrieval precision/recall on the seeded bug set
-- [ ] Cache high-value retrieval results to avoid re-querying on every retry
-- [ ] Document what AST-aware retrieval still misses (dynamic imports, cross-language refs)
-
-### Month 4 — Multi-machine coordination
-
-**M. Yadav**
-- [ ] Stand up the supervisor process on Node A, routing tasks to Node B and Node C
-- [ ] Use gRPC or an authenticated WebSocket (TLS + shared token) — not custom crypto
-- [ ] Add a heartbeat/health-check so a dropped worker doesn't silently stall a run
-- [ ] Build a simple task queue so the supervisor can hold work if a worker is busy
-- [ ] Explicitly handle "worker disconnects mid-task" — decide and implement the recovery path
-- [ ] Get the exact Month-1 CLI command running across all three physical laptops, end to end
-
-**Y. Jangra**
-- [ ] Wrap the inference engine as a network-callable service on Node B
-- [ ] Stream model output back to the supervisor instead of waiting for full completion
-- [ ] Handle "supervisor unreachable" gracefully on the worker side
-- [ ] Add request queuing so Node B can't be overwhelmed by parallel requests
-- [ ] Measure round-trip latency added by the network hop vs. running locally — this number matters
-- [ ] Tune what gets sent over the wire (full repo vs. relevant slice) to keep latency sane
-
-**B. Kataria**
-- [ ] Wrap the Docker sandbox as a network-callable service on Node C
-- [ ] Build secure-enough transfer of only the relevant repo slice to the worker
-- [ ] Handle sandbox cleanup if the network connection drops mid-test
-- [ ] Add basic auth so a random device on the WiFi can't submit jobs to your sandbox
-- [ ] Test what happens when Node C handles two things at once — document the limit honestly
-- [ ] Screen-record the three-laptop run for the eventual launch video
-
-### Month 5 — Minimal live dashboard
-
-**M. Yadav**
-- [ ] Build a WebSocket event stream from the supervisor to a frontend
-- [ ] Add basic auth so the dashboard isn't open to anyone on the local network
-- [ ] Stream state transitions (thought → action → observation → reflection) as structured events
-- [ ] Add a pause/abort endpoint that actually halts execution, not just the UI
-- [ ] Log every run to disk (SQLite is fine) so past sessions are reviewable
-- [ ] Load-test the WebSocket connection across a long-running multi-hour session
-
-**Y. Jangra**
-- [ ] Scaffold the Next.js app with a minimal, clean layout (function over decoration)
-- [ ] Build the live log/state stream component
-- [ ] Build a basic diff viewer for the current edit
-- [ ] Add a hardware panel showing VRAM/CPU usage per node
-- [ ] Wire the pause/abort button to the backend endpoint
-- [ ] Make sure it doesn't fall over if two people open it at once
-
-**B. Kataria**
-- [ ] Build session history storage (past runs, searchable)
-- [ ] Add session export (download a run's full log as a file)
-- [ ] Add input validation on anything the dashboard sends back to the backend
-- [ ] Build a simple replay view for past runs
-- [ ] Test the dashboard against a deliberately flaky WiFi connection — fix what breaks
-- [ ] Production-build it and confirm it loads on a machine that isn't yours
-
-### Month 6 — Benchmark, honest docs, ship it
-
-**M. Yadav**
-- [ ] Run a 24–48 hour stability soak test across all three nodes
-- [ ] Write a setup doc and test it on a machine you've never touched before
-- [ ] Pin dependency versions so a fresh clone doesn't break in a month
-- [ ] Write basic CI: lint + a couple of integration tests on every PR
-- [ ] Do a security pass on the sandbox boundary specifically — this is the part that can hurt someone if it's wrong
-- [ ] Final repo cleanup: strip secrets, dead code, draft files
-
-**Y. Jangra**
-- [ ] Run Loopcutter against a real slice of SWE-bench Lite (even 20–30 issues is meaningful)
-- [ ] Publish the raw numbers, including the failures — this is what makes the README credible
-- [ ] Write the architecture doc, expanding on the diagrams already in this README
-- [ ] Write the install/setup tutorial, tested against Month-6's fresh-machine setup
-- [ ] Document hardware requirements honestly — what actually fits in 6GB vs. 8GB vs. more
-- [ ] Compare your numbers to OpenHands/Aider/Cline's published numbers, plainly, without spin
-
-**B. Kataria**
-- [ ] Rewrite the README's intro once there's a real demo to point to — replace claims with evidence
-- [ ] Record a short (1–2 minute), unscripted demo video — raw footage beats over-produced clips here
-- [ ] Set up `CONTRIBUTING.md` and issue templates
-- [ ] Lock in the `LICENSE` file
-- [ ] Write the Show HN / r/LocalLLaMA post — lead with what it does, not a star count you don't control
-- [ ] Publish
+HydraNet does **one thing** the field doesn't yet do well: **it quits dead approaches on purpose, documents why, and forces genuinely new ones.** The genealogy view, the convergence score, and the Reaper Protocol are the entire point.
 
 ---
 
 ## License
 
-MIT. Swap for Apache-2.0 if you want an explicit patent grant — pick before you publish, not after.
-
-## Contributing
-
-Fork → branch → PR. Add real contribution guidelines once the Month-6 docs pass is done — don't write rules for a project that doesn't run yet.
+MIT
 
 ---
 
-*None of the above means don't build this. It means build the one true thing first, demo it honestly, and let the rest follow.*
+## Contributing
+
+Fork → branch → PR. See `CONTRIBUTING.md` (written in Phase Ⅵ, once the architecture is stable enough that contribution guidelines won't change weekly).
+
+---
+
+<div align="center">
+
+Built by  **B. Kataria** · **M. Yadav** · **Y. Jangra**
+
+*Three laptops. Zero cloud. One problem solved properly.*
+
+</div>
