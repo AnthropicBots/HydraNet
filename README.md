@@ -73,16 +73,16 @@ Everything else in this repo — the AST-aware graph retrieval, the three-node m
                          [ Bug report / GitHub issue ]
                                       │
                                       ▼
-  ╔═══════════════════════════════════════════════════════════════════╗
-  ║         NODE A  ─  THE SUPERVISOR  (M. Yadav · RTX 3050 · 6GB)   ║
-  ║                                                                   ║
-  ║  ┌─────────────────┐   ┌──────────────┐   ┌──────────────────┐   ║
-  ║  │  State Machine  │──▶│ Convergence  │──▶│ Reaper Protocol  │   ║
-  ║  │  (LangGraph)    │   │  Detector    │   │ (rollback engine)│   ║
-  ║  └─────────────────┘   └──────────────┘   └──────────────────┘   ║
-  ║          │                                         │              ║
-  ║   routes tasks                             fires on threshold     ║
-  ╚══════════╪═════════════════════════════════════════╪═════════════╝
+  ╔════════════════════════════════════════════════════════════════════╗
+  ║         NODE A  ─  THE SUPERVISOR  (M. Yadav · RTX 3050 · 6GB)     ║
+  ║                                                                    ║
+  ║  ┌─────────────────┐   ┌──────────────┐    ┌──────────────────┐    ║
+  ║  │  State Machine  │──▶│ Convergence  │──▶│ Reaper Protocol  │    ║
+  ║  │  (LangGraph)    │   │  Detector    │    │ (rollback engine)│    ║
+  ║  └─────────────────┘   └──────────────┘    └──────────────────┘    ║
+  ║          │                                         │               ║
+  ║   routes tasks                             fires on threshold      ║
+  ╚══════════╪═════════════════════════════════════════╪═══════════════╝
              │                                         │
       ┌──────┴──────┐                         ┌────────┴───────┐
       ▼             ▼                         ▼                ▼
@@ -91,18 +91,18 @@ Everything else in this repo — the AST-aware graph retrieval, the three-node m
       │
   ╔═══╧═══════════════════════════╗   ╔═══════════════════════════════╗
   ║ NODE B  ─  INFERENCE WORKER   ║   ║ NODE C  ─  SANDBOX WORKER     ║
-  ║ (Y. Jangra · RTX 4060 · 8GB) ║   ║ (B. Kataria · RTX 4060 · 8GB)║
+  ║ (Y. Jangra · RTX 4060 · 8GB)  ║   ║ (B. Kataria · RTX 4060 · 8GB) ║
   ║                               ║   ║                               ║
   ║  Qwen2.5-Coder-7B (4-bit AWQ) ║   ║  Docker ephemeral sandbox     ║
   ║  BAAI/bge embedding server    ║   ║  pytest / jest executor       ║
   ║  Tree-sitter AST parser       ║   ║  git checkpoint engine        ║
   ║  pgvector graph retrieval     ║   ║  diff calculator              ║
   ╚═══════════════════════════════╝   ╚═══════════════════════════════╝
-             │                                         │
+             │                                          │
              │◀────────── gRPC / WebSocket ───────────▶│
              │             (LAN · TLS)                  │
-             │                                         │
-             └─────────────────┬───────────────────────┘
+             │                                          │
+             └─────────────────┬────────────────────────┘
                                ▼
                    ╔═══════════════════════╗
                    ║   LIVE DASHBOARD      ║
